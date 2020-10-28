@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
+import FormPage from "./pages/FormPage";
 
 function App() {
   useEffect(() => {
@@ -14,13 +15,11 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Grid container justify="center">
-        <BrowserRouter>
-          <Route path="/" exact component={LandingPage} />
-        </BrowserRouter>
-      </Grid>
-    </div>
+    <BrowserRouter>
+      <Route path="/" exact component={LandingPage} />
+      <Route path="/home" exact component={LandingPage} />
+      <Route path="/form" exact component={FormPage} />
+    </BrowserRouter>
   );
 }
 

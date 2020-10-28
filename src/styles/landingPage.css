@@ -1,8 +1,8 @@
-.App {
+.landing {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("./images/background.png");
+  background-image: url("../images/background.png");
   height: 100vh;
   display: flex;
   flex-direction: column;
