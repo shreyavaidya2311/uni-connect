@@ -1,42 +1,39 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 import joblib
+import pandas as pd
 
 
-class PredictRequest(BaseModel):
+class GradRequest(BaseModel):
     name: str
+    gre: int
+    toefl: int
+    university: int
+    sop: float
+    lor: float
+    cgpa: float
+    research: int
 
 
-# Vectoriser
-gender_cv = joblib.load("models/gender_vectorizer.pkl")
-
-# Models
-gender_clf = joblib.load("models/gender_nv_model.pkl")
+grad = joblib.load("models/grad.joblib")
 
 
 # Routes
 router = APIRouter()
 
-
-@router.get('/')
-async def index():
-    return {"text": "Hello World!"}
-
-
-@router.get('/items/{name}')
-async def get_items(name):
-    return {"name": name}
-
 # ML Routes
 
 
-@router.post('/predict/')
-async def predict(req: PredictRequest):
-    vectorised_name = gender_cv.transform([req.name]).toarray()
-    prediction = gender_clf.predict(vectorised_name)
-    if prediction[0] == 0:
-        result = "female"
-    else:
-        result = "male"
-
-    return {"orig_name": req.name, "prediction": result}
+@router.post('/grad/')
+async def grad_predict(req: GradRequest):
+    df = pd.DataFrame({
+        "GRE Score": [req.gre],
+        "TOEFL Score": [req.toefl],
+        "University Rating": [req.university],
+        "SOP": [req.sop],
+        "LOR": [req.lor],
+        "CGPA": [req.cgpa],
+        "Research": [req.research]
+    })
+    prediction = grad.predict(df)
+    return {"name": req.name, "pred": prediction[0]}

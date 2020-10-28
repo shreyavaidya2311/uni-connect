@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import LandingPage from "./components/LandingPage";
-import { Grid } from "@material-ui/core";
+import LandingPage from "./pages/LandingPage";
 import { BrowserRouter, Route } from "react-router-dom";
-import "./App.css";
 import axios from "axios";
 import FormPage from "./pages/FormPage";
 
