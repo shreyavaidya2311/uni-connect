@@ -1,0 +1,34 @@
+.home {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../images/background.png");
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 480px) {
+  .info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 35%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10%;
+  }
+}
