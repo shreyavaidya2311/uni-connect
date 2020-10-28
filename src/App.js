@@ -1,18 +1,15 @@
 import React from 'react';
-import LandingPage from "./components/LandingPage"
-import { Grid } from "@material-ui/core"
+import LandingPage from "./pages/LandingPage"
+import FormPage from "./pages/FormPage"
 import { BrowserRouter, Route } from "react-router-dom";
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Grid container justify="center">
         <BrowserRouter>
 			    <Route path="/" exact component={LandingPage} />
+          <Route path="/home" exact component={LandingPage} />
+          <Route path="/form" exact component={FormPage} />
 	    	</BrowserRouter>
-      </Grid>
-    </div>
   );
 }
 
