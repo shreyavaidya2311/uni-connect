@@ -14,7 +14,13 @@ const CssTextField = withStyles({
 })(TextField);
 
 const AcademicDetails = (props) => {
-  const [acadDetails, setAcadDetails] = useState({});
+  const [acadDetails, setAcadDetails] = useState({
+    gre: props.formData.gre,
+    toefl: props.formData.toefl,
+    sop: props.formData.sop,
+    lor: props.formData.lor,
+    cgpa: props.formData.cgpa,
+  });
 
   const handleChange = (e) =>
     setAcadDetails({ ...acadDetails, [e.target.name]: e.target.value });

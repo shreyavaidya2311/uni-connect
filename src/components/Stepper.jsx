@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import AcademicDetails from "./FormPages/AcademicDetails";
 import PersonalDetails from "./FormPages/PersonalDetails";
+import ResultPage from "./FormPages/ResultPage";
 import { ArrowBackIos, ArrowForwardIos, Publish } from "@material-ui/icons";
 import axios from "axios";
 
@@ -62,6 +63,7 @@ const LinearStepper = () => {
   const [skipped, setSkipped] = useState(new Set());
   const [formData, setFormData] = useState({});
   const [respData, setRespData] = useState(null); //eslint-disable-line
+  const [clicked, setClicked] = useState(false);
   const steps = getSteps();
 
   const isStepSkipped = (step) => {
@@ -128,6 +130,14 @@ const LinearStepper = () => {
     setFormData({ ...formData, ...state });
   };
 
+  const handleResultClick = () => {
+    setClicked(true);
+  };
+
+  if (clicked) {
+    return <ResultPage respData={respData} />;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Typography style={{ color: "white" }}>
@@ -152,15 +162,33 @@ const LinearStepper = () => {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          <Typography
-            style={{
-              fontSize: "1em",
-              color: "white",
-              justifyContent: "center",
-            }}
-          >
-            Your record has been saved succesfully
-          </Typography>
+          <>
+            <Typography
+              style={{
+                fontSize: "1em",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Your record has been saved succesfully!
+            </Typography>
+
+            <br />
+            <Grid container justify="center">
+              <Button
+                variant="contained"
+                size="large"
+                style={{
+                  backgroundColor: "#003c6c",
+                  color: "white",
+                  fontFamily: "Rubik",
+                }}
+                onClick={handleResultClick}
+              >
+                View Results
+              </Button>
+            </Grid>
+          </>
         ) : (
           <div>
             <Grid container justify="center">
@@ -177,7 +205,10 @@ const LinearStepper = () => {
                   {activeStep === 0 ? null : (
                     <Button
                       startIcon={<ArrowBackIos />}
-                      style={{ color: "white" }}
+                      style={{
+                        color: "white",
+                        fontFamily: "Rubik",
+                      }}
                       onClick={handleBack}
                     >
                       Back
@@ -188,7 +219,11 @@ const LinearStepper = () => {
                   {activeStep === steps.length - 1 ? (
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "#003c6c", color: "white" }}
+                      style={{
+                        backgroundColor: "#003c6c",
+                        color: "white",
+                        fontFamily: "Rubik",
+                      }}
                       endIcon={<Publish />}
                       onClick={handleSubmit}
                     >
@@ -197,7 +232,11 @@ const LinearStepper = () => {
                   ) : (
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "#003c6c", color: "white" }}
+                      style={{
+                        backgroundColor: "#003c6c",
+                        color: "white",
+                        fontFamily: "Rubik",
+                      }}
                       endIcon={<ArrowForwardIos />}
                       onClick={handleNext}
                     >
