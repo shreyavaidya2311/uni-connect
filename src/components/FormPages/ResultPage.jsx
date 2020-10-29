@@ -35,8 +35,8 @@ const ResultPage = (props) => {
         label: "Chances of getting in",
         backgroundColor: ["#66bb6a", "#ef5350"],
         data: [
-          Math.ceil(props.respData.pred),
-          100 - Math.ceil(props.respData.pred),
+          Math.ceil(props.respData.pred * 100),
+          100 - Math.ceil(props.respData.pred * 100),
         ],
       },
     ],
@@ -60,7 +60,7 @@ const ResultPage = (props) => {
         <Grid item>
           <Typography style={{ color: "whitesmoke", fontSize: "1rem" }}>
             Your chances of studying in your dream university are{" "}
-            {Math.ceil(props.respData.pred)}%
+            {Math.ceil(props.respData.pred * 100)}%
           </Typography>
         </Grid>
         <Grid item className={classes.root} lg={12}>
