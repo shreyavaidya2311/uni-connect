@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 import joblib
 import pandas as pd
+import numpy as np
 
 
 class GradRequest(BaseModel):
@@ -16,7 +17,7 @@ class GradRequest(BaseModel):
 
 
 grad = joblib.load("models/grad.joblib")
-
+sc = joblib.load("models/sc.bin")
 
 # Routes
 router = APIRouter()
@@ -26,14 +27,8 @@ router = APIRouter()
 
 @router.post('/grad/')
 async def grad_predict(req: GradRequest):
-    df = pd.DataFrame({
-        "GRE Score": [req.gre],
-        "TOEFL Score": [req.toefl],
-        "University Rating": [req.university],
-        "SOP": [req.sop],
-        "LOR": [req.lor],
-        "CGPA": [req.cgpa],
-        "Research": [req.research]
-    })
-    prediction = grad.predict(df)
+    df = np.array([req.gre, req.toefl, req.university,
+                   req.sop, req.lor, req.cgpa, req.research])
+    new_df = sc.transform(df.reshape(1, -1))
+    prediction = grad.predict(new_df)
     return {"name": req.name, "pred": prediction[0]}

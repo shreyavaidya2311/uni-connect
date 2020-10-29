@@ -14,6 +14,7 @@ import PersonalDetails from "./FormPages/PersonalDetails";
 import ResultPage from "./FormPages/ResultPage";
 import { ArrowBackIos, ArrowForwardIos, Publish } from "@material-ui/icons";
 import axios from "axios";
+import swal from "sweetalert";
 
 const theme = createMuiTheme({
   typography: {
@@ -119,7 +120,12 @@ const LinearStepper = () => {
         setRespData(res.data);
         handleNext();
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>
+        swal({
+          icon: "warning",
+          text: "Please fill all details",
+        })
+      );
   };
 
   const handleBack = () => {
