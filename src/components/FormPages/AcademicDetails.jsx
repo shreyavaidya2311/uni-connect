@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/formPage.css";
 import { Grid, TextField, withStyles } from "@material-ui/core";
 
@@ -13,7 +13,16 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const AcademicDetails = () => {
+const AcademicDetails = (props) => {
+  const [acadDetails, setAcadDetails] = useState({});
+
+  const handleChange = (e) =>
+    setAcadDetails({ ...acadDetails, [e.target.name]: e.target.value });
+
+  useEffect(() => {
+    props.handleFormDataChange(acadDetails);
+  }, [acadDetails]); //eslint-disable-line
+
   return (
     <>
       <Grid container spacing={2} justify="center">
@@ -25,9 +34,11 @@ const AcademicDetails = () => {
             label="GRE Score"
             type="number"
             fullWidth
+            value={acadDetails.gre}
             InputProps={{
               style: { color: "white", fontFamily: "Rubik" },
             }}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item lg={6}>
@@ -38,9 +49,11 @@ const AcademicDetails = () => {
             label="TOEFL Score"
             fullWidth
             type="number"
+            value={acadDetails.toefl}
             InputProps={{
               style: { color: "white", fontFamily: "Rubik" },
             }}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item lg={12}>
@@ -50,9 +63,11 @@ const AcademicDetails = () => {
             name="sop"
             label="SOP"
             fullWidth
+            value={acadDetails.sop}
             InputProps={{
               style: { color: "white", fontFamily: "Rubik" },
             }}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item lg={6}>
@@ -63,9 +78,11 @@ const AcademicDetails = () => {
             label="Number of LORs"
             type="number"
             fullWidth
+            value={acadDetails.lor}
             InputProps={{
               style: { color: "white", fontFamily: "Rubik" },
             }}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item lg={6}>
@@ -75,10 +92,12 @@ const AcademicDetails = () => {
             name="cgpa"
             label="CGPA"
             type="number"
+            value={acadDetails.cgpa}
             InputProps={{
               style: { color: "white", fontFamily: "Rubik" },
             }}
             fullWidth
+            onChange={handleChange}
           />
         </Grid>
       </Grid>

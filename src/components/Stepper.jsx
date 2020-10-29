@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   ThemeProvider,
@@ -12,6 +12,7 @@ import {
 import AcademicDetails from "./FormPages/AcademicDetails";
 import PersonalDetails from "./FormPages/PersonalDetails";
 import { ArrowBackIos, ArrowForwardIos, Publish } from "@material-ui/icons";
+import axios from "axios";
 
 const theme = createMuiTheme({
   typography: {
@@ -56,27 +57,18 @@ const getSteps = () => {
   return ["Personal Details", "Academic Details"];
 };
 
-const getStepContent = (step) => {
-  switch (step) {
-    case 0:
-      return <PersonalDetails />;
-    case 1:
-      return <AcademicDetails />;
-    default:
-      return "Unknown step";
-  }
-};
-
 const LinearStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+  const [formData, setFormData] = useState({});
+  const [respData, setRespData] = useState(null); //eslint-disable-line
   const steps = getSteps();
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = (length) => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -87,8 +79,53 @@ const LinearStepper = () => {
     setSkipped(newSkipped);
   };
 
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <PersonalDetails
+            handleFormDataChange={handleFormDataChange}
+            formData={formData}
+          />
+        );
+      case 1:
+        return (
+          <AcademicDetails
+            handleFormDataChange={handleFormDataChange}
+            formData={formData}
+          />
+        );
+      default:
+        return "Unknown step";
+    }
+  };
+
+  const handleSubmit = () => {
+    const reqData = {
+      name: formData.fname,
+      gre: formData.gre,
+      toefl: formData.toefl,
+      university: formData.collegeTier,
+      sop: formData.sop,
+      lor: formData.lor,
+      cgpa: formData.cgpa,
+      research: 1,
+    };
+    axios
+      .post("http://localhost:8000/grad/", { ...reqData })
+      .then((res) => {
+        setRespData(res.data);
+        handleNext();
+      })
+      .catch((e) => console.log(e));
+  };
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleFormDataChange = (state) => {
+    setFormData({ ...formData, ...state });
   };
 
   return (
@@ -115,7 +152,15 @@ const LinearStepper = () => {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          alert("Completed Successfully!")
+          <Typography
+            style={{
+              fontSize: "1em",
+              color: "white",
+              justifyContent: "center",
+            }}
+          >
+            Your record has been saved succesfully
+          </Typography>
         ) : (
           <div>
             <Grid container justify="center">
@@ -140,20 +185,25 @@ const LinearStepper = () => {
                   )}
                 </Grid>
                 <Grid item>
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#003c6c", color: "white" }}
-                    endIcon={
-                      activeStep === steps.length - 1 ? (
-                        <Publish />
-                      ) : (
-                        <ArrowForwardIos />
-                      )
-                    }
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1 ? "Submit" : "Next"}
-                  </Button>
+                  {activeStep === steps.length - 1 ? (
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#003c6c", color: "white" }}
+                      endIcon={<Publish />}
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#003c6c", color: "white" }}
+                      endIcon={<ArrowForwardIos />}
+                      onClick={handleNext}
+                    >
+                      Next
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </div>
