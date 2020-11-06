@@ -17,12 +17,6 @@ etr = ExtraTreesRegressor()
 df = pd.read_csv("Admission_Predict_Ver1.1.csv")
 
 
-# In[3]:
-
-
-df
-
-
 # In[5]:
 
 
@@ -34,11 +28,7 @@ y = df["Chance of Admit "]
 # In[6]:
 
 
-etr.fit(x,y)
+etr.fit(x, y)
 
 
 # In[ ]:
-
-
-
-
