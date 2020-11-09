@@ -1,25 +1,25 @@
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
+from sklearn.ensemble import ExtraTreesRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 import joblib
 
-dataset = pd.read_csv('./train.csv')
-dataset_test = pd.read_csv('./test.csv')
+df = pd.read_csv("admpr1.csv")
+df2 = pd.read_csv("admpr.csv")
 
-dataset.drop(columns='Id', inplace=True)
+data = pd.concat([df, df2])
+data.drop(columns='Serial No.', inplace=True)
 
-X = dataset.iloc[:, :-1]
-Y = dataset.iloc[:, -1]
-x_train, x_test, y_train, y_test = train_test_split(
-    X, Y, test_size=0.50, random_state=2)
+
+x = data.iloc[:, : -1]
+y = data.iloc[:, -1]
 
 sc = StandardScaler()
-X_train = sc.fit_transform(x_train)
-X_test = sc.fit_transform(x_test)
+x = sc.fit_transform(x)
 joblib.dump(sc, "sc.bin", compress=True)
 
-model = LinearRegression()
-model.fit(X_train, y_train)
+etr = ExtraTreesRegressor()
+
+model = etr.fit(x, y)
 joblib.dump(model, "grad.joblib")
