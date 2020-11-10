@@ -117,15 +117,24 @@ const LinearStepper = () => {
     axios
       .post("http://localhost:8000/grad/", { ...reqData })
       .then((res) => {
+        console.log("hey");
         setRespData(res.data);
         handleNext();
       })
-      .catch((e) =>
-        swal({
-          icon: "warning",
-          text: "Please fill all details",
-        })
-      );
+      .catch((e) => {
+        if (e.response.status === 422) {
+          swal({
+            icon: "warning",
+            text: "Please fill all details",
+          });
+        }
+        if (e.response.status === 400) {
+          swal({
+            icon: "warning",
+            text: e.response.data.message,
+          });
+        }
+      });
   };
 
   const handleBack = () => {
