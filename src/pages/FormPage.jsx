@@ -19,6 +19,7 @@ const FormPage = () => {
               textDecoration: "none",
               color: "black",
               fontSize: "1em",
+              fontFamily: "Rubik",
             }}
           >
             UniConnect
@@ -28,6 +29,7 @@ const FormPage = () => {
               textDecoration: "none",
               color: "black",
               fontSize: "1em",
+              fontFamily: "Rubik",
             }}
             to="/home"
           >
@@ -38,6 +40,7 @@ const FormPage = () => {
               textDecoration: "none",
               color: "black",
               fontSize: "1em",
+              fontFamily: "Rubik",
             }}
             to="/form"
           >

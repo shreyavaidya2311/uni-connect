@@ -45,20 +45,38 @@ const ResultPage = (props) => {
     <>
       <Grid container justify="center">
         <Grid item>
-          <Typography style={{ color: "whitesmoke", fontSize: "1.5rem" }}>
+          <Typography
+            style={{
+              color: "whitesmoke",
+              fontSize: "1.5rem",
+              fontFamily: "Rubik",
+            }}
+          >
             Hey <b>{props.respData.name}</b>!
           </Typography>
         </Grid>
 
         <br />
         <Grid item>
-          <Typography style={{ color: "whitesmoke", fontSize: "1rem" }}>
+          <Typography
+            style={{
+              color: "whitesmoke",
+              fontSize: "1rem",
+              fontFamily: "Rubik",
+            }}
+          >
             Congratulations! You've taken your first step to pursue your dream
             of studying abroad.
           </Typography>
         </Grid>
         <Grid item>
-          <Typography style={{ color: "whitesmoke", fontSize: "1rem" }}>
+          <Typography
+            style={{
+              color: "whitesmoke",
+              fontSize: "1rem",
+              fontFamily: "Rubik",
+            }}
+          >
             Your chances of studying in your dream university are{" "}
             {Math.ceil(props.respData.pred * 100)}%
           </Typography>
