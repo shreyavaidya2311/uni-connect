@@ -4,9 +4,9 @@ UniConnect is an application which aims to accurately predict chances of studyin
 <a href="https://connect-uni.herokuapp.com/">Live Demo</a>
 
 ### Team
-Shreya Vaidya 
-Sameer Kavthekar 
-Dhruva Kapadia
+<a href="https://github.com/shreyavaidya2311">Shreya Vaidya</a>                                                                                                                     
+<a href="https://github.com/sameerkavthekar">Sameer Kavthekar</a>                                                                                                                   
+<a href="https://github.com/Dhruva-Kapadia">Dhruva Kapadia</a> 
 
 ### Installation
 ```
