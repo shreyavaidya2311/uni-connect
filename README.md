@@ -1,12 +1,12 @@
-## PPL Mini Project - UniConnect - Predict your chances of studying abroad
+## UniConnect - Predict your chances of studying abroad
 
 UniConnect is an application which aims to accurately predict chances of studying abroad. Our application analyses the information entered by the user and calculates the results.<br>
 <a href="https://connect-uni.herokuapp.com/">Live Demo</a>
 
 ### Team
-Shreya Vaidya - 111903156  
-Sameer Kavthekar - 111903153  
-Dhruva Kapadia - 111903142
+Shreya Vaidya 
+Sameer Kavthekar 
+Dhruva Kapadia
 
 ### Installation
 ```
